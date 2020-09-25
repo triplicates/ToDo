@@ -1,0 +1,34 @@
+.ToDo {
+  display: flex;
+  flex-direction: column;
+  background: silver;
+  width: 500px;
+  height: 400px;
+  &__tasks {
+    flex-basis: 100%;
+  }
+  &__task {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    input {
+      position: absolute;
+      top: -6px;
+      right: 10px;
+    }
+  }
+  &__task-complete {
+    background: green;
+  }
+  &__form {
+    display: flex;
+    height: 32px;
+    input {
+      height: 100%;
+    }
+  }
+  &__text {
+    flex-basis: 100%;
+  }
+}

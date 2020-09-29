@@ -1,102 +1,107 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
+import propTypes from "prop-types";
+import DoneIcon from "@material-ui/icons/Done";
 import "./ToDo.scss";
 
-class Task extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    complete: this.props.task.status,
-  };
+const ToDo = ({ datas }) => {
+  let _data = datas || [],
+    [data, setData] = useState(_data),
+    [value, setValue] = useState(""),
+    ID = data[data.length - 1] ? data[data.length - 1].id : 0;
 
   // Events
 
-  hundleClick = () => {
-    let status = this.state.complete;
+  let renderToDos = (data) => {
+    if (!data.length) return <h1 className="ToDo__empty">Empty :(</h1>;
+    let content = data.map((task) => {
+      return <Task key={task.id} task={task} removeToDo={removeToDo} />;
+    });
 
-    if (status === "processed") {
-      this.setState({
-        complete: "complete",
-      });
-    } else {
-      this.setState({
-        complete: "processed",
-      });
-    }
+    return content.reverse();
   };
 
-  render() {
-    let { task } = this.props;
-    let { complete } = this.state;
-    return (
-      <article
-        className={` ToDo__task ${
-          complete === "complete" ? "ToDo__task-complete" : ""
-        }`}
-      >
-        <h3 className="ToDo__task-title">{task.title}</h3>
-        <input onClick={this.hundleClick} type="checkbox" />
-      </article>
-    );
-  }
-}
-
-class ToDo extends Component {
-  state = {
-    Tasks: [],
+  let removeToDo = (id) => {
+    setData(data.filter((todo) => todo.id !== id));
   };
-  // Events
 
-  hundleClick = (e) => {
+  let hundleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  let hundleSubmit = (e) => {
     e.preventDefault();
-
+    if (!value.length) return;
     let task = {
-      title: this.state.value,
-      status: "processed",
+      id: ++ID,
+      text: value,
     };
-
-    this.setState({
-      Tasks: this.state.Tasks.concat(task),
-    });
-  };
-
-  hundleChange = (e) => {
-    this.setState({
-      value: e.target.value,
-    });
+    setData(data.concat(task));
   };
 
   // Render
-  render() {
-    let content,
-      { Tasks } = this.state;
-    if (Tasks.length) {
-      content = Tasks.map((task) => {
-        return <Task task={task} />;
-      });
-    } else {
-      content = <p>Empty</p>;
-    }
 
-    return (
-      <div className="ToDo">
-        <section className="ToDo__tasks">{content}</section>
-        <form className="ToDo__form" action="">
+  return (
+    <div className="ToDo">
+      <div className="ToDo__inner">
+        <section className="ToDo__upper">{renderToDos(data)}</section>
+        <form className="ToDo__form" action="#">
           <input
-            onChange={this.hundleChange}
+            onChange={hundleChange}
             className="ToDo__text"
             type="text"
+            placeholder="Please write your task"
           />
           <input
-            onClick={this.hundleClick}
+            onClick={hundleSubmit}
             className="ToDo__btn"
             type="submit"
+            value="Send"
           />
         </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+ToDo.propTypes = {
+  datas: propTypes.array,
+};
+
+const Task = ({ task, removeToDo }) => {
+  let [status, setStatus] = useState("process");
+
+  let hundleClick = () => {
+    status === "process"
+      ? setStatus((status = "complete"))
+      : setStatus((status = "process"));
+  };
+
+  return (
+    <article className={`task ${status === "complete" ? "task_complete" : ""}`}>
+      <p>{task.text}</p>
+      <div className="task__controls">
+        <DoneIcon
+          onClick={hundleClick}
+          className="task__btn task__btn-complete task_btn-hovered"
+          type="button"
+          value="C"
+        />
+        <input
+          onClick={() => {
+            removeToDo(task.id);
+          }}
+          className="task__btn task__btn-remove task_btn-hovered"
+          type="button"
+          value="Remove"
+        />
+      </div>
+    </article>
+  );
+};
+
+Task.propTypes = {
+  task: propTypes.object.isRequired,
+};
 
 export default ToDo;

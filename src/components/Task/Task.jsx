@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
 import propTypes from "prop-types";
 import DoneIcon from "@material-ui/icons/Done";
 import "./Task.scss";

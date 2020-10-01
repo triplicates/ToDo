@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
 import propTypes from "prop-types";
 import Task from "../Task/Task.jsx";
 import "./ToDo.scss";

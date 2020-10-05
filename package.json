@@ -1,5 +1,5 @@
 {
-  "name": "todoapp",
+  "name": "React-development",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,7 +16,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router": "^5.2.0"
+    "react-router-dom": "^5.2.0"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -36,6 +39,7 @@
     "sass": "^1.26.10",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
+    "styled-components": "^5.2.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

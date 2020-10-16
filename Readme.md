@@ -1,10 +1,11 @@
-### ToDo App
+# Simple ToDo App
 
-My firt app with ReactJS library
+### Description
 
-    In this work I used React hooks
+My first simple app with @reactjs library.
+As a project, I chose a simple to-do list and uploaded the final result to GitHub Pages
 
-See work - [ToDo](https://triplicates.github.io/ToDo/)
+See work [here](https://triplicates.github.io/ToDo/)
 
 #### 🕐 Time
 
